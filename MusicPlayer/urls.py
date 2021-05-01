@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('',views.root, name = "localhost"),
     path('get/<str:audio_type>', views.get, name = 'get_audio_playlist'),
     path('get/<str:audio_type>/<int:audio_id>', views.get, name = 'get_audio_file'),
     path('update/<str:audio_type>/<int:audio_id>', views.update, name = "update_audio_file"),
