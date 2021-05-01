@@ -25,27 +25,27 @@ def get(request, audio_type, audio_id = ''):
         
 @csrf_exempt
 def delete(request, audio_type, audio_id = ''):
-    Model = apps.get_model('MusicPlayer', audio_type)
-    if request.method == "POST":
+    if request.method == "DELETE":
+        Model = apps.get_model('MusicPlayer', audio_type)
         Model.objects.get(id = audio_id).delete()
         return HttpResponse("Successfully Deleted")
 
 @csrf_exempt
 def update(request, audio_type, audio_id = ''):
-    json_data = json.loads(request.body)
-    Model = apps.get_model('MusicPlayer', audio_type)
     if request.method == "POST":
+        json_data = json.loads(request.body)
+        Model = apps.get_model('MusicPlayer', audio_type)
         record = Model.objects.get(id = audio_id)
         for key, value in json_data.items():
-            record.key = value
-            print(record.key)
+            setattr(record, key, value)
             record.save(update_fields = [key])
     return HttpResponse(record.host)
 
 @csrf_exempt
 def create(request, audio_type, audio_id = ''):
-    json_data = json.loads(request.body)
-    Model = apps.get_model('MusicPlayer', audio_type)
-    Model.objects.create(**json_data)
-    return HttpResponse("New Record Created")
+    if request.method == "POST":
+        json_data = json.loads(request.body)
+        Model = apps.get_model('MusicPlayer', audio_type)
+        Model.objects.create(**json_data)
+        return HttpResponse("New Record Created")
 
