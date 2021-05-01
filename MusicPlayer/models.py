@@ -17,7 +17,7 @@ class Podcasts(models.Model):
     uploaded = models.DateTimeField(default = timezone.now)
     host = models.CharField(max_length=100)
     participants = ArrayField(
-            models.CharField(max_length=100), size = 10, blank = True
+            models.CharField(max_length=100), size = 10, blank = True, default = list
           )
 
 class AudioBook(models.Model):
