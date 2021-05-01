@@ -41,7 +41,7 @@ def get(request, audio_type, audio_id = ''):
 @csrf_exempt
 def update(request, audio_type, audio_id = ''):
     try:
-        if request.method == "PUT" or request.method == "POST":
+        if request.method == "PUT":
             json_data = json.loads(request.body)
             Model = apps.get_model('MusicPlayer', audio_type)
             record = Model.objects.get(id = audio_id)
